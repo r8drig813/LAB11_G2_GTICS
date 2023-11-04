@@ -3,6 +3,7 @@ package com.example.lab11_g2.controller;
 import com.example.lab11_g2.entity.Juego;
 import com.example.lab11_g2.repository.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/juego")
 public class JuegoController {
 
-    final DistribuidorasRepository distribuidorasRepository;
+    final DistribuidoraRepository distribuidoraRepository;
     final EditoraRepository editoraRepository;
     final FacturaRepository facturaRepository;
     final GenerosRepository generosRepository;
@@ -24,8 +25,8 @@ public class JuegoController {
     final PlataformasRepository plataformasRepository;
     final UserRepository userRepository;
 
-    public JuegoController(DistribuidorasRepository distribuidorasRepository, EditoraRepository editoraRepository, FacturaRepository facturaRepository, GenerosRepository generosRepository, JuegoRepository juegoRepository, JuegosxUsuarioRepository juegosxUsuarioRepository, PaisesRepository paisesRepository, PlataformasRepository plataformasRepository, UserRepository userRepository) {
-        this.distribuidorasRepository = distribuidorasRepository;
+    public JuegoController(DistribuidoraRepository distribuidoraRepository, EditoraRepository editoraRepository, FacturaRepository facturaRepository, GenerosRepository generosRepository, JuegoRepository juegoRepository, JuegosxUsuarioRepository juegosxUsuarioRepository, PaisesRepository paisesRepository, PlataformasRepository plataformasRepository, UserRepository userRepository) {
+        this.distribuidoraRepository = distribuidoraRepository;
         this.editoraRepository = editoraRepository;
         this.facturaRepository = facturaRepository;
         this.generosRepository = generosRepository;
@@ -78,6 +79,82 @@ public class JuegoController {
         }
         responseJson.put("estado", "creado");
         return ResponseEntity.status(HttpStatus.CREATED).body(responseJson);
+    }
+
+    // ACTUALIZAR
+    @PutMapping(value = {"", "/"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<HashMap<String, Object>> actualizar(Juego juegoRecibido) {
+
+        HashMap<String, Object> rpta = new HashMap<>();
+
+        if (juegoRecibido.getId() != null && juegoRecibido.getId() > 0) {
+
+            Optional<Juego> byId = juegoRepository.findById(juegoRecibido.getId());
+            if (byId.isPresent()) {
+                Juego juegofromDb = byId.get();
+
+                if (juegoRecibido.getNombre() != null)
+                    juegofromDb.setNombre(juegoRecibido.getNombre());
+
+                if (juegoRecibido.getDescripcion() != null)
+                    juegofromDb.setDescripcion(juegoRecibido.getDescripcion());
+
+                if (juegoRecibido.getPrecio() != null)
+                    juegofromDb.setPrecio(juegoRecibido.getPrecio());
+
+                if (juegoRecibido.getImage() != null)
+                    juegofromDb.setImage(juegoRecibido.getImage());
+
+                if (juegoRecibido.getIdgenero() != null)
+                    juegofromDb.setIdgenero(juegoRecibido.getIdgenero());
+
+                if (juegoRecibido.getIdplataforma() != null)
+                    juegofromDb.setIdplataforma(juegoRecibido.getIdplataforma());
+
+                if (juegoRecibido.getIdeditora() != null)
+                    juegofromDb.setIdeditora(juegoRecibido.getIdeditora());
+
+                if (juegoRecibido.getIddistribuidora() != null)
+                    juegofromDb.setIddistribuidora(juegoRecibido.getIddistribuidora());
+
+
+                juegoRepository.save(juegofromDb);
+                rpta.put("result", "ok");
+                return ResponseEntity.ok(rpta);
+            } else {
+                rpta.put("result", "error");
+                rpta.put("msg", "El ID del producto enviado no existe");
+                return ResponseEntity.badRequest().body(rpta);
+            }
+        } else {
+            rpta.put("result", "error");
+            rpta.put("msg", "debe enviar un producto con ID");
+            return ResponseEntity.badRequest().body(rpta);
+        }
+    }
+
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<HashMap<String, Object>> borrar(@RequestParam("id") String idStr){
+
+        try{
+            int id = Integer.parseInt(idStr);
+
+            HashMap<String, Object> rpta = new HashMap<>();
+
+            Optional<Juego> byId = juegoRepository.findById(id);
+            if(byId.isPresent()){
+                juegoRepository.deleteById(id);
+                rpta.put("result","ok");
+            }else{
+                rpta.put("result","no ok");
+                rpta.put("msg","el ID enviado no existe");
+            }
+
+            return ResponseEntity.ok(rpta);
+        }catch (NumberFormatException e){
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
 }
