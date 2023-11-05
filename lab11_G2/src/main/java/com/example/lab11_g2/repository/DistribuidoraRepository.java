@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface DistribuidorasRepository extends JpaRepository<Distribuidora,Integer> {
+public interface DistribuidoraRepository extends JpaRepository<Distribuidora,Integer> {
 }
