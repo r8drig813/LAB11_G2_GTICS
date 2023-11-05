@@ -19,7 +19,7 @@
                     <a class="navbar-brand" href="#">GameShop</a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/distruibuidora}">Distribuidora</a>
+                            <a class="nav-link" th:href="@{/distribuidora}">Distribuidora</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" th:href="@{/juego}">Juegos</a>
@@ -28,7 +28,7 @@
                 </div>
             </nav>
             <h2>Lista de Distribuidoras</h2>
-            <a class="btn btn-primary mt-4 mb-4" th:href="@{'/distruibuidora/new'}">Nuevo Distribuidora</a>
+            <a class="btn btn-primary mt-4 mb-4" th:href="@{'/distribuidora/new'}">Nuevo Distribuidora</a>
             <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
             <table class="table">
                 <thead>
@@ -51,9 +51,9 @@
                         <td th:text="${distribuidora.fundacion}"></td>
                         <td th:text="${distribuidora.web}"></td>
                         <td th:text="${distribuidora.idsede.nombre}"></td>
-                        <td><a class="btn btn-primary" th:href="@{'/distruibuidora/edit' + '?id=' + ${distribuidora.id}}">Editar</a>
+                        <td><a class="btn btn-primary" th:href="@{'/distribuidora/edit' + '?id=' + ${distribuidora.id}}">Editar</a>
                         </td>
-                        <td><a class="btn btn-danger" th:href="@{'/distruibuidora/delete' + '?id=' + ${distribuidora.id}}">Borrar</a>
+                        <td><a class="btn btn-danger" th:href="@{'/distribuidora/delete' + '?id=' + ${distribuidora.id}}">Borrar</a>
                         </td>
                     </tr>
                 </tbody>

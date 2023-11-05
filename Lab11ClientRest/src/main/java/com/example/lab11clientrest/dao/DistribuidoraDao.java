@@ -62,8 +62,8 @@ public class DistribuidoraDao {
         ResponseEntity<DistribuidoraDto> forEntity = restTemplate.getForEntity(url, DistribuidoraDto.class);
 
         if(forEntity.getStatusCode().is2xxSuccessful()){
-            DistribuidoraDto productDto = forEntity.getBody();
-            distribuidoras = productDto.getDistribuidora();
+            DistribuidoraDto distribuidoraDto = forEntity.getBody();
+            distribuidoras = distribuidoraDto.getDistribuidora();
         }
 
         return distribuidoras;

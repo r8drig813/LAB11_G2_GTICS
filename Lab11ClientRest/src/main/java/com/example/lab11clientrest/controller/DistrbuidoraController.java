@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value = "/distruibuidora")
+@RequestMapping(value = "/distribuidora")
 public class DistrbuidoraController {
 
     final DistribuidoraDao distribuidoraDao;
@@ -53,21 +53,18 @@ public class DistrbuidoraController {
     }
 
     @GetMapping("/edit")
-    public String editarTransportista(@ModelAttribute("distribuidoras") Distribuidoras distribuidoras,
-                                      Model model, @RequestParam("id") int id) {
+    public String editarDistr(Model model, @RequestParam("id") int id) {
 
-        Distribuidoras distribuidoras1 = distribuidoraDao.buscarPorId(id);
+        Distribuidoras distribuidorasBuscar = distribuidoraDao.buscarPorId(id);
 
-
-        if(distribuidoras1 != null) {
-
-            distribuidoras = distribuidoras1;
-            model.addAttribute("distribuidoras", distribuidoras);
+        if (distribuidorasBuscar != null) {
+            model.addAttribute("distribuidoras", distribuidorasBuscar);
             model.addAttribute("listaPais", sedeDao.listar());
             return "distribuidoras/form";
         } else {
             return "redirect:/distruibuidora";
         }
     }
+
 
 }

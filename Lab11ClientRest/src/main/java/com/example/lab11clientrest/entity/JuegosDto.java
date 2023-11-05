@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DistribuidoraDto {
+public class JuegosDto {
 
     private String result;
-    private Distribuidoras distribuidora;
+    private Juegos juego;
 }

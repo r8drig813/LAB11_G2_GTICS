@@ -68,7 +68,7 @@ public class JuegoController {
         }
     }
 
-    @PostMapping(value = {"", "/registro"})
+    @PostMapping(value = {"/registro"})
     public ResponseEntity<HashMap<String, Object>> guardarJuego(
             @RequestBody Juego juego,
             @RequestParam(value = "fetchId", required = false) boolean fetchId) {
@@ -84,8 +84,8 @@ public class JuegoController {
     }
 
     // ACTUALIZAR
-    @PostMapping(value = {"/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<HashMap<String, Object>> actualizar(Juego juegoRecibido) {
+    @PutMapping(value = {"/registro"})
+    public ResponseEntity<HashMap<String, Object>> actualizar(@RequestBody Juego juegoRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
 

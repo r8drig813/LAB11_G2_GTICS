@@ -19,7 +19,7 @@
             <a class="navbar-brand" href="#">GameShop</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/distruibuidora}">Distribuidora</a>
+                    <a class="nav-link" th:href="@{/distribuidora}">Distribuidora</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/juego}">Juegos</a>
@@ -55,9 +55,9 @@
             <td th:text="${juego.idplataforma.nombre}"></td>
             <td th:text="${juego.ideditora.nombre}"></td>
             <td th:text="${juego.iddistribuidora.nombre}"></td>
-            <td><a class="btn btn-primary" href="">Editar</a>
+            <td><a class="btn btn-primary" th:href="@{'/juego/edit' + '?id=' + ${juego.id}}">Editar</a>
             </td>
-            <td><a class="btn btn-danger" href="">Borrar</a>
+            <td><a class="btn btn-danger" th:href="@{'/juego/delete' + '?id=' + ${juego.id}}">Borrar</a>
             </td>
         </tr>
         </tbody>
