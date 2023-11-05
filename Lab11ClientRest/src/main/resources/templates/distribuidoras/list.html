@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <title th:text="Distribuidoras"></title>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand" href="#">GameShop</a>
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/distruibuidora}">Distribuidora</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/juego}">Juegos</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <h2>Lista de Distribuidoras</h2>
+            <a class="btn btn-primary mt-4 mb-4" th:href="@{'/product/new'}">Nuevo Distribuidora</a>
+            <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Fundacion</th>
+                        <th>Web</th>
+                        <th>Sede</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="distribuidora, info : ${listaDistribuidoras}">
+                        <td th:text="${info.index + 1}"></td>
+                        <td th:text="${distribuidora.nombre}"></td>
+                        <td th:text="${distribuidora.descripcion}"></td>
+                        <td th:text="${distribuidora.fundacion}"></td>
+                        <td th:text="${distribuidora.web}"></td>
+                        <td th:text="${distribuidora.idsede.nombre}"></td>
+                        <td><a class="btn btn-primary" href="">Editar</a>
+                        </td>
+                        <td><a class="btn btn-danger" href="">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
