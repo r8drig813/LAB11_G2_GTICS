@@ -27,7 +27,7 @@
                     </ul>
                 </div>
             </nav>
-            <h2 th:text="${distribuidoras.id == null? 'Nuevo Producto' : 'Editar Producto'}">Nuevo/Editar Producto</h2>
+            <h2 th:text="${distribuidoras.id == null? 'Nuevo Distribuidora' : 'Editar Distribuidora'}">Nuevo/Editar Distribuidoras</h2>
             <hr/>
             <form method="post" th:action="@{'/distruibuidora/save'}" th:object="${distribuidoras}">
                 <input type="hidden" th:field="*{id}" />

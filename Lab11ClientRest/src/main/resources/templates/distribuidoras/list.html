@@ -51,9 +51,9 @@
                         <td th:text="${distribuidora.fundacion}"></td>
                         <td th:text="${distribuidora.web}"></td>
                         <td th:text="${distribuidora.idsede.nombre}"></td>
-                        <td><a class="btn btn-primary" href="">Editar</a>
+                        <td><a class="btn btn-primary" th:href="@{'/distruibuidora/edit' + '?id=' + ${distribuidora.id}}">Editar</a>
                         </td>
-                        <td><a class="btn btn-danger" href="">Borrar</a>
+                        <td><a class="btn btn-danger" th:href="@{'/distruibuidora/delete' + '?id=' + ${distribuidora.id}}">Borrar</a>
                         </td>
                     </tr>
                 </tbody>

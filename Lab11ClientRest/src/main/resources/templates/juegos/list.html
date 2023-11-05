@@ -28,7 +28,7 @@
         </div>
     </nav>
     <h2>Lista de Juegos</h2>
-    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/product/new'}">Nuevo Juego</a>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/juego/new'}">Nuevo Juego</a>
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <table class="table">
         <thead>
@@ -37,7 +37,6 @@
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Precio</th>
-            <th>Foto</th>
             <th>Genero</th>
             <th>Plataforma</th>
             <th>Editora</th>

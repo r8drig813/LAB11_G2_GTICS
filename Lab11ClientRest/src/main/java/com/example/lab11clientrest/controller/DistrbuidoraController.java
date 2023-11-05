@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -27,21 +24,21 @@ public class DistrbuidoraController {
     }
 
     @GetMapping({"/list", "", "/"})
-    public String listarProductos(Model model) {
+    public String listarDistribuidora(Model model) {
         //model.addAttribute("listaProductos", productRepository.findAll());
         model.addAttribute("listaDistribuidoras", distribuidoraDao.listar());
         return "distribuidoras/list";
     }
 
     @GetMapping("/new")
-    public String nuevoProductoFrm(@ModelAttribute("distribuidoras") Distribuidoras distribuidoras, Model model) {
+    public String nuevoDistribuidoraFrm(@ModelAttribute("distribuidoras") Distribuidoras distribuidoras, Model model) {
 
         model.addAttribute("listaPais", sedeDao.listar());
         return "distribuidoras/form";
     }
 
     @PostMapping("/save")
-    public String guardarProducto(@ModelAttribute("distribuidoras") @Valid Distribuidoras distribuidoras, BindingResult bindingResult,
+    public String guardarDistribuidora(@ModelAttribute("distribuidoras") @Valid Distribuidoras distribuidoras, BindingResult bindingResult,
                                   Model model, RedirectAttributes attr) {
 
         if (bindingResult.hasErrors()) {
@@ -50,8 +47,25 @@ public class DistrbuidoraController {
         } else {
             String msg = "Distribuidora " + (distribuidoras.getId() == null ? "creado" : "actualizado") + " exitosamente";
             attr.addFlashAttribute("msg", msg);
-            // productRepository.save(product);
             distribuidoraDao.guardar(distribuidoras); //voy a hacer la validación de guardar o actualizar en el dao.
+            return "redirect:/distruibuidora";
+        }
+    }
+
+    @GetMapping("/edit")
+    public String editarTransportista(@ModelAttribute("distribuidoras") Distribuidoras distribuidoras,
+                                      Model model, @RequestParam("id") int id) {
+
+        Distribuidoras distribuidoras1 = distribuidoraDao.buscarPorId(id);
+
+
+        if(distribuidoras1 != null) {
+
+            distribuidoras = distribuidoras1;
+            model.addAttribute("distribuidoras", distribuidoras);
+            model.addAttribute("listaPais", sedeDao.listar());
+            return "distribuidoras/form";
+        } else {
             return "redirect:/distruibuidora";
         }
     }

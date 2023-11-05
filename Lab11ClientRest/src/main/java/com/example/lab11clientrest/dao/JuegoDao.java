@@ -3,6 +3,9 @@ package com.example.lab11clientrest.dao;
 
 import com.example.lab11clientrest.entity.Distribuidoras;
 import com.example.lab11clientrest.entity.Juegos;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +33,23 @@ public class JuegoDao {
         }
 
         return lista;
+    }
+
+    public void guardar(Juegos juegos){
+
+        RestTemplate restTemplate = new RestTemplate();
+        String endPoint = "http://localhost:8080/juego/registro";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Juegos> httpEntity = new HttpEntity<>(juegos,httpHeaders);
+
+        if(juegos.getId() ==null){
+            restTemplate.postForEntity(endPoint,httpEntity,Distribuidoras.class);
+        }else{
+            restTemplate.put(endPoint,httpEntity,Distribuidoras.class);
+        }
     }
 
 }

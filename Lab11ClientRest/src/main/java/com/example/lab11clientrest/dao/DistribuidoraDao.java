@@ -1,5 +1,6 @@
 package com.example.lab11clientrest.dao;
 
+import com.example.lab11clientrest.entity.DistribuidoraDto;
 import com.example.lab11clientrest.entity.Distribuidoras;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -48,7 +49,24 @@ public class DistribuidoraDao {
         }else{
             restTemplate.put(endPoint,httpEntity,Distribuidoras.class);
         }
+    }
 
+    public Distribuidoras buscarPorId(int id){
+
+        Distribuidoras distribuidoras = null;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "http://localhost:8080/distribuidora/" + id;
+
+        ResponseEntity<DistribuidoraDto> forEntity = restTemplate.getForEntity(url, DistribuidoraDto.class);
+
+        if(forEntity.getStatusCode().is2xxSuccessful()){
+            DistribuidoraDto productDto = forEntity.getBody();
+            distribuidoras = productDto.getDistribuidora();
+        }
+
+        return distribuidoras;
     }
 
 }
