@@ -84,8 +84,8 @@ public class JuegoController {
     }
 
     // ACTUALIZAR
-    @PutMapping(value = {"/registro"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<HashMap<String, Object>> actualizar(Juego juegoRecibido) {
+    @PutMapping(value = {"/registro"})
+    public ResponseEntity<HashMap<String, Object>> actualizar(@RequestBody Juego juegoRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
 

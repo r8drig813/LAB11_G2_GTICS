@@ -84,8 +84,8 @@ public class DistribuidoraController {
     }
 
     // ACTUALIZAR
-    @PutMapping(value = { "/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<HashMap<String, Object>> actualizar(Distribuidora distribuidoraRecibido) {
+    @PutMapping(value = { "/registro"})
+    public ResponseEntity<HashMap<String, Object>> actualizar(@RequestBody Distribuidora distribuidoraRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
 
