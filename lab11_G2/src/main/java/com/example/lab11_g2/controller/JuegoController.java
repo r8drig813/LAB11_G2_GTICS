@@ -2,9 +2,11 @@ package com.example.lab11_g2.controller;
 
 import com.example.lab11_g2.entity.Juego;
 import com.example.lab11_g2.repository.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class JuegoController {
 
     //LISTAR
     @GetMapping(value = {"/list", ""})
-    public List<Juego> listaProductos() {
+    public List<Juego> listaJuegos() {
         return juegoRepository.findAll();
     }
 
@@ -82,7 +84,7 @@ public class JuegoController {
     }
 
     // ACTUALIZAR
-    @PutMapping(value = {"", "/"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PostMapping(value = {"/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<HashMap<String, Object>> actualizar(Juego juegoRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
@@ -123,15 +125,39 @@ public class JuegoController {
                 return ResponseEntity.ok(rpta);
             } else {
                 rpta.put("result", "error");
-                rpta.put("msg", "El ID del producto enviado no existe");
+                rpta.put("msg", "El ID del juego enviado no existe");
                 return ResponseEntity.badRequest().body(rpta);
             }
         } else {
             rpta.put("result", "error");
-            rpta.put("msg", "debe enviar un producto con ID");
+            rpta.put("msg", "debe enviar un juego con ID");
             return ResponseEntity.badRequest().body(rpta);
         }
     }
+
+    /*@PutMapping(value = "/actualizar")
+    public ResponseEntity<HashMap<String,Object>> actualizarProducto(@RequestBody Juego juego) {
+
+        HashMap<String, Object> responseMap = new HashMap<>();
+
+        if (juego.getId() != null && juego.getId() > 0) {
+            Optional<Juego> opt = juegoRepository.findById(juego.getId());
+            if (opt.isPresent()) {
+                juegoRepository.save(juego);
+                responseMap.put("estado", "actualizado");
+                return ResponseEntity.ok(responseMap);
+            } else {
+                responseMap.put("estado", "error");
+                responseMap.put("msg", "El producto a actualizar no existe");
+                return ResponseEntity.badRequest().body(responseMap);
+            }
+        } else {
+            responseMap.put("estado", "error");
+            responseMap.put("msg", "Debe enviar un ID");
+            return ResponseEntity.badRequest().body(responseMap);
+        }
+    }*/
+
 
 
     @DeleteMapping("/delete")
@@ -155,6 +181,16 @@ public class JuegoController {
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<HashMap<String, String>> gestionException(HttpServletRequest request) {
+        HashMap<String, String> responseMap = new HashMap<>();
+        if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")) {
+            responseMap.put("estado", "error");
+            responseMap.put("msg", "Debe enviar un juego");
+        }
+        return ResponseEntity.badRequest().body(responseMap);
     }
 
 }

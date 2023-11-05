@@ -2,9 +2,11 @@ package com.example.lab11_g2.controller;
 
 import com.example.lab11_g2.entity.Distribuidora;
 import com.example.lab11_g2.repository.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class DistribuidoraController {
 
     //LISTAR
     @GetMapping(value = {"/list", ""})
-    public List<Distribuidora> listaProductos() {
+    public List<Distribuidora> listaDistribuidoras() {
         return distribuidoraRepository.findAll();
     }
 
@@ -82,7 +84,7 @@ public class DistribuidoraController {
     }
 
     // ACTUALIZAR
-    @PutMapping(value = {"", "/"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PostMapping(value = { "/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<HashMap<String, Object>> actualizar(Distribuidora distribuidoraRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
@@ -113,12 +115,12 @@ public class DistribuidoraController {
                 return ResponseEntity.ok(rpta);
             } else {
                 rpta.put("result", "error");
-                rpta.put("msg", "El ID del producto enviado no existe");
+                rpta.put("msg", "El ID del distribuidora enviado no existe");
                 return ResponseEntity.badRequest().body(rpta);
             }
         } else {
             rpta.put("result", "error");
-            rpta.put("msg", "debe enviar un producto con ID");
+            rpta.put("msg", "debe enviar un distribuidora con ID");
             return ResponseEntity.badRequest().body(rpta);
         }
     }
@@ -144,5 +146,15 @@ public class DistribuidoraController {
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<HashMap<String, String>> gestionException(HttpServletRequest request) {
+        HashMap<String, String> responseMap = new HashMap<>();
+        if (request.getMethod().equals("POST") || request.getMethod().equals("PUT")) {
+            responseMap.put("estado", "error");
+            responseMap.put("msg", "Debe enviar una distribuidora");
+        }
+        return ResponseEntity.badRequest().body(responseMap);
     }
 }
