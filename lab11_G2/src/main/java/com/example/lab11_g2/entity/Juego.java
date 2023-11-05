@@ -1,11 +1,14 @@
 package com.example.lab11_g2.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(value = {"image"})
+
 @Entity
 @Table(name = "juegos")
 public class Juego {
