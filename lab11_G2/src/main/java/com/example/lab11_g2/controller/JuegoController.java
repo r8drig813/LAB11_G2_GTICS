@@ -84,7 +84,8 @@ public class JuegoController {
     }
 
     // ACTUALIZAR
-    @PostMapping(value = {"/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    /*
+    @PutMapping(value = {"/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<HashMap<String, Object>> actualizar(Juego juegoRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
@@ -134,8 +135,8 @@ public class JuegoController {
             return ResponseEntity.badRequest().body(rpta);
         }
     }
-
-    /*@PutMapping(value = "/actualizar")
+    */
+    @PutMapping(value = "/actualizar")
     public ResponseEntity<HashMap<String,Object>> actualizarProducto(@RequestBody Juego juego) {
 
         HashMap<String, Object> responseMap = new HashMap<>();
@@ -156,7 +157,7 @@ public class JuegoController {
             responseMap.put("msg", "Debe enviar un ID");
             return ResponseEntity.badRequest().body(responseMap);
         }
-    }*/
+    }
 
 
 

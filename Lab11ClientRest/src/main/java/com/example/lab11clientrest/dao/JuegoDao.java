@@ -1,8 +1,10 @@
 package com.example.lab11clientrest.dao;
 
 
+import com.example.lab11clientrest.entity.DistribuidoraDto;
 import com.example.lab11clientrest.entity.Distribuidoras;
 import com.example.lab11clientrest.entity.Juegos;
+import com.example.lab11clientrest.entity.JuegosDto;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -50,6 +52,24 @@ public class JuegoDao {
         }else{
             restTemplate.put(endPoint,httpEntity,Distribuidoras.class);
         }
+    }
+
+    public Juegos buscarPorId(int id){
+
+        Juegos distribuidoras = null;
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "http://localhost:8080/juego/" + id;
+
+        ResponseEntity<JuegosDto> forEntity = restTemplate.getForEntity(url, JuegosDto.class);
+
+        if(forEntity.getStatusCode().is2xxSuccessful()){
+            JuegosDto juegosDto = forEntity.getBody();
+            distribuidoras = juegosDto.getJuego();
+        }
+
+        return distribuidoras;
     }
 
 }

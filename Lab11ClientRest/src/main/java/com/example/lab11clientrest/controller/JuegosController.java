@@ -2,15 +2,13 @@ package com.example.lab11clientrest.controller;
 
 
 import com.example.lab11clientrest.dao.*;
+import com.example.lab11clientrest.entity.Distribuidoras;
 import com.example.lab11clientrest.entity.Juegos;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -63,6 +61,23 @@ public class JuegosController {
             attr.addFlashAttribute("msg", msg);
             // productRepository.save(product);
             juegoDao.guardar(juegos); //voy a hacer la validación de guardar o actualizar en el dao.
+            return "redirect:/juego";
+        }
+    }
+
+    @GetMapping("/edit")
+    public String editarJuego(Model model, @RequestParam("id") int id) {
+
+        Juegos juegosBuscar = juegoDao.buscarPorId(id);
+
+        if (juegosBuscar != null) {
+            model.addAttribute("juegos", juegosBuscar);
+            model.addAttribute("listaPlat", plataformaDao.listar());
+            model.addAttribute("listaGenero", generoDao.listar());
+            model.addAttribute("listaEditora", editoraDao.listar());
+            model.addAttribute("listaDist", distribuidoraDao.listar());
+            return "juegos/form";
+        } else {
             return "redirect:/juego";
         }
     }

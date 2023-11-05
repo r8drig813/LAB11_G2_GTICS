@@ -58,7 +58,7 @@ public class DistribuidoraController {
 
             if (byId.isPresent()) {
                 respuesta.put("result", "ok");
-                respuesta.put("Distribuidora", byId.get());
+                respuesta.put("distribuidora", byId.get());
             } else {
                 respuesta.put("result", "no existe");
             }
@@ -84,7 +84,7 @@ public class DistribuidoraController {
     }
 
     // ACTUALIZAR
-    @PostMapping(value = { "/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @PutMapping(value = { "/actualizar"}, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<HashMap<String, Object>> actualizar(Distribuidora distribuidoraRecibido) {
 
         HashMap<String, Object> rpta = new HashMap<>();
