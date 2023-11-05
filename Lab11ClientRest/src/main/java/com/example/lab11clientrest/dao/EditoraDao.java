@@ -19,7 +19,7 @@ public class EditoraDao {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String endPoint = "http://localhost:8080/distribuidora/list";
+        String endPoint = "http://localhost:8080/editora/list";
 
         ResponseEntity<Editora[]> responseEntity = restTemplate.getForEntity(endPoint, Editora[].class);
 

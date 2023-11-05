@@ -82,4 +82,14 @@ public class JuegosController {
         }
     }
 
+    @GetMapping("/delete")
+    public String borrarDistribui(Model model, @RequestParam("id") int id, RedirectAttributes attr) {
+
+
+        juegoDao.deleteProductById(id);
+        attr.addFlashAttribute("msg", "Producto borrado exitosamente");
+        return "redirect:/juego";
+
+    }
+
 }

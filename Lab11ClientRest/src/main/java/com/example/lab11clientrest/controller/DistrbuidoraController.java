@@ -48,7 +48,7 @@ public class DistrbuidoraController {
             String msg = "Distribuidora " + (distribuidoras.getId() == null ? "creado" : "actualizado") + " exitosamente";
             attr.addFlashAttribute("msg", msg);
             distribuidoraDao.guardar(distribuidoras); //voy a hacer la validación de guardar o actualizar en el dao.
-            return "redirect:/distruibuidora";
+            return "redirect:/distribuidora";
         }
     }
 
@@ -62,8 +62,18 @@ public class DistrbuidoraController {
             model.addAttribute("listaPais", sedeDao.listar());
             return "distribuidoras/form";
         } else {
-            return "redirect:/distruibuidora";
+            return "redirect:/distribuidora";
         }
+    }
+
+    @GetMapping("/delete")
+    public String borrarDistribui(Model model, @RequestParam("id") int id, RedirectAttributes attr) {
+
+
+        distribuidoraDao.deleteProductById(id);
+        attr.addFlashAttribute("msg", "Producto borrado exitosamente");
+        return "redirect:/distribuidora";
+
     }
 
 

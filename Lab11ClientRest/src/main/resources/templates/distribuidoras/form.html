@@ -19,7 +19,7 @@
                     <a class="navbar-brand" href="#">Northwind</a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/distruibuidora}">Distribuidoras</a>
+                            <a class="nav-link" th:href="@{/distribuidora}">Distribuidoras</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" th:href="@{/juego}">Juegos</a>
@@ -29,7 +29,7 @@
             </nav>
             <h2 th:text="${distribuidoras.id == null? 'Nuevo Distribuidora' : 'Editar Distribuidora'}">Nuevo/Editar Distribuidoras</h2>
             <hr/>
-            <form method="post" th:action="@{'/distruibuidora/save'}" th:object="${distribuidoras}">
+            <form method="post" th:action="@{'/distribuidora/save'}" th:object="${distribuidoras}">
                 <input type="hidden" th:field="*{id}" />
                 <div class="form-group">
                     <label for="nombre">Nombre de la Distribuidora</label>
@@ -58,7 +58,7 @@
                                 th:value="${pais.id}" th:text="${pais.nombre}"></option>
                     </select>
                 </div>
-                <a th:href="@{'/distruibuidora'}" class="btn btn-danger">Cancelar</a>
+                <a th:href="@{'/distribuidora'}" class="btn btn-danger">Cancelar</a>
                 <button type="submit" class="btn btn-primary" th:text="${distribuidoras.id == null? 'Registrar' : 'Actualizar'}">Reg/act</button>
             </form>
         </div>

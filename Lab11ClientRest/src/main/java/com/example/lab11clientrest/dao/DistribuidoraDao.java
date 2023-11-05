@@ -69,4 +69,11 @@ public class DistribuidoraDao {
         return distribuidoras;
     }
 
+    public void deleteProductById(int id){
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        restTemplate.delete("http://localhost:8080/distribuidora/delete?id="+id);
+    }
+
 }

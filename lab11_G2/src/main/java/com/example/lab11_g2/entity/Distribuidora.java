@@ -14,6 +14,7 @@ public class Distribuidora {
     @Column(name = "iddistribuidora", nullable = false)
     private Integer id;
 
+
     @Column(name = "nombre", length = 50)
     private String nombre;
 
